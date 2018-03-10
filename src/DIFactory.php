@@ -87,6 +87,26 @@ class DIFactory
     }
 
     /**
+     * @param callable|\Closure|string $functionName
+     * @param array ...$args
+     * @return mixed
+     * @throws ClassNotFoundException
+     * @throws \ReflectionException
+     */
+    public static function injectFunction($functionName, ...$args)
+    {
+        try {
+            $function = new \ReflectionFunction($functionName);
+            $params = self::injectMethodParams($function, $args);
+
+            return count($params) ? $function->invokeArgs($params) : $function->invoke();
+
+        } catch (\ReflectionException $exception) {
+            throw $exception;
+        }
+    }
+
+    /**
      * @param \ReflectionFunctionAbstract $method
      * @param array $sentParams
      * @return array
