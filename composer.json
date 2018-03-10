@@ -1,0 +1,22 @@
+{
+  "name": "vs/general",
+  "description": "VarYan's General package",
+  "type": "package",
+  "homepage": "https://github.com/varyandeveloper/vs-general",
+  "require": {
+    "php": "^7.2"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Varazdat Stepanyan",
+      "email": "developervaryan@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "VS\\General\\": "./src/"
+    }
+  },
+  "minimum-stability": "dev"
+}
