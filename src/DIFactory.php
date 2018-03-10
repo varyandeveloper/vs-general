@@ -63,6 +63,30 @@ class DIFactory
     }
 
     /**
+     * @param string $className
+     * @param string $methodName
+     * @param array ...$args
+     * @return mixed
+     * @throws ClassNotFoundException
+     * @throws \ReflectionException
+     */
+    public static function injectMethod(string $className, string $methodName, ...$args)
+    {
+        try {
+            $reflectionClass = new \ReflectionClass($className);
+            $method = new \ReflectionMethod(self::resolveClass($reflectionClass)->getName(), $methodName);
+            $params = self::injectMethodParams($method, $args);
+            $object = self::injectClass($className);
+
+            return $method->invoke($object, ...$params);
+
+        } catch (\ReflectionException $exception) {
+            // TODO::do something with exception
+            throw $exception;
+        }
+    }
+
+    /**
      * @param \ReflectionFunctionAbstract $method
      * @param array $sentParams
      * @return array
