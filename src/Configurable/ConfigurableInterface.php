@@ -5,6 +5,7 @@ namespace VS\General\Configurable;
 /**
  * Interface ConfigurableInterface
  * @package VS\General\Configurable
+ * @author Varazdat Stepanyan
  */
 interface ConfigurableInterface
 {
