@@ -15,6 +15,15 @@ trait ConfigurableTrait
     protected $config = [];
 
     /**
+     * @param string $key
+     * @return bool
+     */
+    public function has(string $key)
+    {
+        return !empty($this->config[$key]);
+    }
+
+    /**
      * @param string|null $key
      * @return array|mixed
      */
@@ -23,7 +32,7 @@ trait ConfigurableTrait
         if(null !== $key) {
             if(!isset($this->config[$key])) {
                 throw new \InvalidArgumentException(sprintf(
-                    ''
+                    'Configuration key []'
                 ));
             }
             return $this->config[$key];

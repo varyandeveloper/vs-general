@@ -10,6 +10,12 @@ namespace VS\General\Configurable;
 interface ConfigurableInterface
 {
     /**
+     * @param string $key
+     * @return bool
+     */
+    public function has(string $key): bool;
+
+    /**
      * @param string|null $key
      * @return mixed
      */
