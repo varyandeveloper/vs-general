@@ -32,7 +32,8 @@ trait ConfigurableTrait
         if(null !== $key) {
             if(!isset($this->config[$key])) {
                 throw new \InvalidArgumentException(sprintf(
-                    'Configuration key []'
+                    ConfigurableConstants::getMessage(ConfigurableConstants::INVALID_KEY_CODE),
+                    $key
                 ));
             }
             return $this->config[$key];

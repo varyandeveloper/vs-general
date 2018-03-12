@@ -27,13 +27,13 @@ class ConfigurableConstants
     protected static $messages = [];
 
     /**
-     * @param string $key
+     * @param int $code
      * @param string $lang
      * @return string
      */
-    public static function getMessage(string $key, string $lang = self::DEFAULT_LANG): string
+    public static function getMessage(int $code, string $lang = self::DEFAULT_LANG): string
     {
-        $message = self::$messages[$lang][$key] ?? self::MESSAGES[$lang][$key] ?? false;
+        $message = self::$messages[$lang][$code] ?? self::MESSAGES[$lang][$code] ?? false;
         if (!$message) {
             throw new \InvalidArgumentException(sprintf(
                 'Configurable message not found in %s',
