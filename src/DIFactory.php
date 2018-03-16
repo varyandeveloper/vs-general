@@ -63,20 +63,30 @@ class DIFactory
     }
 
     /**
-     * @param string $className
+     * @param string|object $class
      * @param string $methodName
      * @param array ...$args
      * @return mixed
      * @throws ClassNotFoundException
      * @throws \ReflectionException
      */
-    public static function injectMethod(string $className, string $methodName, ...$args)
+    public static function injectMethod($class, string $methodName, ...$args)
     {
         try {
-            $reflectionClass = new \ReflectionClass($className);
-            $method = new \ReflectionMethod(self::resolveClass($reflectionClass)->getName(), $methodName);
+
+            if (is_string($class)) {
+                $reflectionClass = new \ReflectionClass($class);
+                $className = self::resolveClass($reflectionClass)->getName();
+                $object = self::injectClass($className);
+            } elseif (is_object($class)) {
+                $className = $class;
+                $object = $class;
+            } else {
+                throw new \InvalidArgumentException("Parameter class should be either string or object.");
+            }
+
+            $method = new \ReflectionMethod($className, $methodName);
             $params = self::injectMethodParams($method, $args);
-            $object = self::injectClass($className);
 
             return $method->invoke($object, ...$params);
 
